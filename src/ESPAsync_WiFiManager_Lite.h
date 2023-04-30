@@ -1039,7 +1039,7 @@ class ESPAsync_WiFiManager_Lite
 
     //////////////////////////////////////////////
 
-    void setConfigPortal(const String& ssid = "", const String& pass = "")
+    void setConfigPortal(const String& ssid = emptyString, const String& pass = emptyString)
     {
       portal_ssid = ssid;
       portal_pass = pass;
@@ -1391,8 +1391,8 @@ class ESPAsync_WiFiManager_Lite
     IPAddress portal_apIP = IPAddress(192, 168, 4, 1);
     int WiFiAPChannel = 10;
 
-    String portal_ssid = "";
-    String portal_pass = "";
+    String portal_ssid = emptyString;
+    String portal_pass = emptyString;
 
     IPAddress static_IP   = IPAddress(0, 0, 0, 0);
     IPAddress static_GW   = IPAddress(0, 0, 0, 0);
@@ -3041,14 +3041,12 @@ class ESPAsync_WiFiManager_Lite
       digitalWrite(LED_BUILTIN, LED_ON);
 #endif
 
-      if ( (portal_ssid == "") || portal_pass == "" )
+      if ( (portal_ssid == emptyString) )
       {
         String chipID = String(ESP_getChipId(), HEX);
         chipID.toUpperCase();
 
         portal_ssid = "ESP_" + chipID;
-
-        portal_pass = "MyESP_" + chipID;
       }
 
       WiFi.mode(WIFI_AP);
@@ -3071,7 +3069,7 @@ class ESPAsync_WiFiManager_Lite
       // ESP32 or ESP8266is core v3.0.0- is OK either way
       WiFi.softAPConfig(portal_apIP, portal_apIP, IPAddress(255, 255, 255, 0));
 
-      WiFi.softAP(portal_ssid.c_str(), portal_pass.c_str(), channel);
+      WiFi.softAP(portal_ssid, portal_pass, channel);
 
       ESP_WML_LOGERROR3(F("\nstConf:SSID="), portal_ssid, F(",PW="), portal_pass);
       ESP_WML_LOGERROR3(F("IP="), portal_apIP.toString(), ",ch=", channel);
