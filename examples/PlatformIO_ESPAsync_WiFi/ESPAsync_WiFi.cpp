@@ -48,7 +48,7 @@ void check_status()
   static unsigned long checkstatus_timeout = 0;
 
   //KH
-#define HEARTBEAT_INTERVAL    20000L
+#define HEARTBEAT_INTERVAL    5000L
   // Print hearbeat every HEARTBEAT_INTERVAL (20) seconds.
   if ((millis() > checkstatus_timeout) || (checkstatus_timeout == 0))
   {
@@ -84,8 +84,8 @@ void setup()
 #endif
 
   ESPAsync_WiFiManager = new ESPAsync_WiFiManager_Lite();
-  String AP_SSID = "your_customized_ssid";
-  String AP_PWD  = "your_customized_pwd";
+  String AP_SSID = "WmLiteTest";
+  String AP_PWD  = "abc";
   
   // Set customized AP SSID and PWD
   ESPAsync_WiFiManager->setConfigPortal(AP_SSID, AP_PWD);
